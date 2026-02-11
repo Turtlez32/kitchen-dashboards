@@ -58,7 +58,7 @@ export const calendarEvents: CalendarEvent[] = [
     time: "9:00 AM",
     date: "Today",
     color: "#FF6B6B",
-    who: "Emma",
+    who: "Harvey",
   },
   {
     id: "2",
@@ -66,7 +66,7 @@ export const calendarEvents: CalendarEvent[] = [
     time: "11:30 AM",
     date: "Today",
     color: "#4ECDC4",
-    who: "Dad",
+    who: "Matthew",
   },
   {
     id: "3",
@@ -74,7 +74,7 @@ export const calendarEvents: CalendarEvent[] = [
     time: "3:00 PM",
     date: "Today",
     color: "#FFE66D",
-    who: "Liam",
+    who: "Andrew",
   },
   {
     id: "4",
@@ -90,7 +90,7 @@ export const calendarEvents: CalendarEvent[] = [
     time: "8:00 AM",
     date: "Tomorrow",
     color: "#34D399",
-    who: "Mom & Emma",
+    who: "Elizabeth & Harvey",
   },
   {
     id: "6",
@@ -98,7 +98,7 @@ export const calendarEvents: CalendarEvent[] = [
     time: "2:00 PM",
     date: "Tomorrow",
     color: "#F472B6",
-    who: "Mom",
+    who: "Elizabeth",
   },
   {
     id: "7",
@@ -106,21 +106,21 @@ export const calendarEvents: CalendarEvent[] = [
     time: "4:00 PM",
     date: "Saturday",
     color: "#FB923C",
-    who: "Liam",
+    who: "Andrew",
   },
 ];
 
 export const todoItems: TodoItem[] = [
-  { id: "1", task: "Buy milk & eggs", assignee: "Mom", completed: false, category: "groceries" },
-  { id: "2", task: "Mow the lawn", assignee: "Dad", completed: false, category: "chores" },
-  { id: "3", task: "Science project poster", assignee: "Emma", completed: true, category: "school" },
-  { id: "4", task: "Walk Biscuit 🐕", assignee: "Liam", completed: false, category: "chores" },
-  { id: "5", task: "Pick up dry cleaning", assignee: "Dad", completed: false, category: "errands" },
-  { id: "6", task: "Clean bedroom", assignee: "Emma", completed: false, category: "chores" },
-  { id: "7", task: "Return library books", assignee: "Liam", completed: true, category: "errands" },
-  { id: "8", task: "Get bananas & apples", assignee: "Mom", completed: false, category: "groceries" },
-  { id: "9", task: "Pack lunch for field trip", assignee: "Mom", completed: false, category: "school" },
-  { id: "10", task: "Plan weekend hike", assignee: "Dad", completed: false, category: "fun" },
+  { id: "1", task: "Buy milk & eggs", assignee: "Elizabeth", completed: false, category: "groceries" },
+  { id: "2", task: "Mow the lawn", assignee: "Matthew", completed: false, category: "chores" },
+  { id: "3", task: "Science project poster", assignee: "Harvey", completed: true, category: "school" },
+  { id: "4", task: "Walk Biscuit 🐕", assignee: "Andrew", completed: false, category: "chores" },
+  { id: "5", task: "Pick up dry cleaning", assignee: "Matthew", completed: false, category: "errands" },
+  { id: "6", task: "Clean bedroom", assignee: "Harvey", completed: false, category: "chores" },
+  { id: "7", task: "Return library books", assignee: "Andrew", completed: true, category: "errands" },
+  { id: "8", task: "Get bananas & apples", assignee: "Elizabeth", completed: false, category: "groceries" },
+  { id: "9", task: "Pack lunch for field trip", assignee: "Elizabeth", completed: false, category: "school" },
+  { id: "10", task: "Plan weekend hike", assignee: "Matthew", completed: false, category: "fun" },
 ];
 
 export const familyMembers = [

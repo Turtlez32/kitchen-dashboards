@@ -1,3 +1,4 @@
+import { todoItems } from "@/lib/mock-data";
 export interface TodoItem {
   id: string;
   task: string;
@@ -13,18 +14,6 @@ export const familyMembers = [
   { name: "Andrew", emoji: "👦", color: "#34D399" },
 ];
 
-export const todoItems: TodoItem[] = [
-  { id: "1", task: "Buy milk & eggs", assignee: "Elizabeth", completed: false, category: "groceries" },
-  { id: "2", task: "Mow the lawn", assignee: "Matthew", completed: false, category: "chores" },
-  { id: "3", task: "Science project poster", assignee: "Harvey", completed: true, category: "school" },
-  { id: "4", task: "Walk Biscuit 🐕", assignee: "Andrew", completed: false, category: "chores" },
-  { id: "5", task: "Pick up dry cleaning", assignee: "Matthew", completed: false, category: "errands" },
-  { id: "6", task: "Clean bedroom", assignee: "Harvey", completed: false, category: "chores" },
-  { id: "7", task: "Return library books", assignee: "Andrew", completed: true, category: "errands" },
-  { id: "8", task: "Get bananas & apples", assignee: "Elizabeth", completed: false, category: "groceries" },
-  { id: "9", task: "Pack lunch for field trip", assignee: "Elizabeth", completed: false, category: "school" },
-  { id: "10", task: "Plan weekend hike", assignee: "Matthew", completed: false, category: "fun" },
-];
 
 const categoryColors: Record<string, string> = {
   groceries: "#7EDAB9",

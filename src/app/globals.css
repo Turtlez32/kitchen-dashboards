@@ -54,7 +54,7 @@
   .candy-card {
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgb(255 255 255 / 50%);
     border-radius: 2rem;
     border: 3px solid transparent;
     padding: 1.3rem;
@@ -66,23 +66,23 @@
   .candy-card--centered {
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgb(255 255 255 / 50%);
     padding: 1.25rem 1rem;
   }
 
   .candy-card--pink {
     border-color: #FFB8D0;
-    box-shadow: 0 8px 32px rgba(255, 143, 171, 0.18), 0 2px 8px rgba(184, 169, 232, 0.12);
+    box-shadow: 0 8px 32px rgb(255 143 171 / 18%), 0 2px 8px rgb(184 169 232 / 12%);
   }
 
   .candy-card--blue {
     border-color: #A8D8EA;
-    box-shadow: 0 8px 32px rgba(168, 216, 234, 0.2), 0 2px 8px rgba(184, 169, 232, 0.1);
+    box-shadow: 0 8px 32px rgb(168 216 234 / 20%), 0 2px 8px rgb(184 169 232 / 10%);
   }
 
   .candy-card--purple {
     border-color: #C397E8;
-    box-shadow: 0 8px 32px rgba(195, 151, 232, 0.18), 0 2px 8px rgba(184, 169, 232, 0.1);
+    box-shadow: 0 8px 32px rgb(195 151 232 / 18%), 0 2px 8px rgb(184 169 232 / 10%);
     overflow: hidden;
   }
 
@@ -335,7 +335,6 @@
   .calendar-section {
     flex: 1;
     min-width: 0;
-    flex-direction: row;
   }
 
   .calendar-section-header {

@@ -1,3 +1,4 @@
+import { calendarEvents } from "@/lib/mock-data";
 export interface CalendarEvent {
   id: string;
   title: string;
@@ -6,16 +7,6 @@ export interface CalendarEvent {
   color: string;
   who: string;
 }
-
-export const calendarEvents: CalendarEvent[] = [
-  { id: "1", title: "Soccer Practice", time: "9:00 AM", date: "Today", color: "#FF6B6B", who: "Emma" },
-  { id: "2", title: "Dentist Appointment", time: "11:30 AM", date: "Today", color: "#4ECDC4", who: "Dad" },
-  { id: "3", title: "Piano Lesson", time: "3:00 PM", date: "Today", color: "#FFE66D", who: "Liam" },
-  { id: "4", title: "Family Movie Night", time: "7:00 PM", date: "Today", color: "#A78BFA", who: "Everyone" },
-  { id: "5", title: "Farmers Market", time: "8:00 AM", date: "Tomorrow", color: "#34D399", who: "Mom & Emma" },
-  { id: "6", title: "Book Club", time: "2:00 PM", date: "Tomorrow", color: "#F472B6", who: "Mom" },
-  { id: "7", title: "Birthday Party — Jake", time: "4:00 PM", date: "Saturday", color: "#FB923C", who: "Liam" },
-];
 
 export const familyMembers = [
   { name: "Elizabeth", emoji: "👩", color: "#F472B6" },
