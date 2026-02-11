@@ -7,12 +7,24 @@ export const familyMembers = [
   { name: "Andrew", emoji: "👦", color: "#34D399" },
 ];
 
+export type CalendarEvent = {
+  id: string;
+  summary: string;
+  start: string;
+  end: string;
+  status: string;
+};
+
 function getMemberColor(name: string): string {
   const member = familyMembers.find((m) => m.name === name);
   return member?.color ?? "#B8A9E8";
 }
 
-export default function Calendar() {
+type CalendarProps = {
+  events: CalendarEvent[];
+};
+
+export default function Calendar({ events }: CalendarProps) {
     const todayEvents = calendarEvents.filter((e) => e.date === "Today");
     const upcomingEvents = calendarEvents.filter((e) => e.date !== "Today");
 
@@ -21,59 +33,28 @@ export default function Calendar() {
         <div className="calendar-section">
               <div className="calendar-section-header">
                 <span className="calendar-pulsing-dot" />
-                Today
+                Calendar Events
               </div>
               <div className="calendar-events">
-                {todayEvents.map((ev) => (
+                {events.map((event) => (
                   <div
-                    key={ev.id}
+                    key={event.id}
                     className="calendar-event-pill"
-                    style={{
-                      '--ev-color-bg': `${ev.color}18`,
-                      '--ev-color-border': `${ev.color}50`,
-                      '--ev-color-shadow': `${ev.color}20`,
-                    } as React.CSSProperties}
                   >
-                    <span className="calendar-event-dot" style={{ background: ev.color }} />
-                    <span className="calendar-event-title">{ev.title}</span>
-                    <span className="calendar-event-time">{ev.time}</span>
-                    <span
+                    {/* <span className="calendar-event-dot" style={{ background: ev.color }} /> */}
+                    <span className="calendar-event-title">{event.summary}</span>
+                    <span className="calendar-event-time">
+                      {new Date(event.start).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}{" "}
+                      {new Date(event.start).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}</span>
+                    {/* <span
                       className="calendar-event-who"
                       style={{ '--who-color-bg': `${getMemberColor(ev.who.split(" ")[0])}22` } as React.CSSProperties}
-                    >
-                      {ev.who}
-                    </span>
+                    > */}
+                      {/* {event.who} */}
+                    {/* </span> */}
                   </div>
                 ))}
-              </div>
-            </div>
 
-            <div className="calendar-section">
-              <div className="calendar-section-header">
-                Upcoming
-              </div>
-              <div className="calendar-events">
-                {upcomingEvents.map((ev) => (
-                  <div
-                    key={ev.id}
-                    className="calendar-event-pill calendar-event-pill--upcoming"
-                    style={{
-                      '--ev-color-bg': `${ev.color}12`,
-                      '--ev-color-border': `${ev.color}35`,
-                    } as React.CSSProperties}
-                  >
-                    <span className="calendar-event-dot" style={{ background: ev.color }} />
-                    <span className="calendar-event-title">{ev.title}</span>
-                    <span className="calendar-event-time">{ev.time}</span>
-                    <span className="calendar-event-date">{ev.date}</span>
-                    <span
-                      className="calendar-event-who"
-                      style={{ '--who-color-bg': `${getMemberColor(ev.who.split(" ")[0])}22` } as React.CSSProperties}
-                    >
-                      {ev.who}
-                    </span>
-                  </div>
-                ))}
               </div>
             </div>
         </>
