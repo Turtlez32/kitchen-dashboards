@@ -1,65 +1,59 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { Baloo_2, Varela_Round } from "next/font/google";
+import Time from "@/components/time";
+import Weather from "@/components/weather";
+import Todos from "@/components/todos";
+import Calendar from "@/components/calendar";
+
+const baloo = Baloo_2({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-baloo",
+});
+
+const varela = Varela_Round({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-varela",
+});
+
+export default function CandyLandDashboard() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={`dashboard-screen ${baloo.variable} ${varela.variable}`}>
+      <div className="dashboard-grid">
+        <div className={`candy-card candy-card--pink candy-card--centered candy-card-bounce ${mounted ? "candy-visible" : ""}`}>
+          <Time />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className={`candy-card candy-card--blue candy-card--centered candy-card-bounce ${mounted ? "candy-visible" : ""}`}>
+          <div className="member-badge">Andrew</div>
         </div>
-      </main>
+
+        <div className={`candy-card candy-card--purple candy-card--centered candy-card-bounce ${mounted ? "candy-visible" : ""}`}>
+          <Weather />
+        </div>
+
+        <div className={`candy-card candy-card--pink candy-card--centered candy-card-bounce ${mounted ? "candy-visible" : ""}`}>
+          <Weather />
+        </div>
+
+        <div className={`candy-card candy-card--blue candy-card-bounce ${mounted ? "candy-visible" : ""}`}>
+          <h2 className="card-heading">To-Do List</h2>
+          <Todos />
+        </div>
+
+        <div className={`candy-card candy-card--purple candy-card-bounce ${mounted ? "candy-visible" : ""}`}>
+          <Calendar />
+        </div>
+      </div>
     </div>
   );
 }
