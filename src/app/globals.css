@@ -1,26 +1,500 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Prevent text selection on dashboard (tablet always-on) */
+  .dashboard-screen {
+    user-select: none;
+    -webkit-user-select: none;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #FFE4F0 0%, #F0DEFF 30%, #E8DFFF 50%, #DDF0F5 70%, #D4F0E8 100%);
+    font-family: var(--font-varela), sans-serif;
+    padding: 2rem;
+    position: relative;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Grid layout                                                        */
+  /* ------------------------------------------------------------------ */
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Card base + variants                                               */
+  /* ------------------------------------------------------------------ */
+
+  .candy-card {
+    display: flex;
+    flex-direction: column;
+    background: rgb(255 255 255 / 50%);
+    border-radius: 2rem;
+    border: 3px solid transparent;
+    padding: 1.3rem;
+    backdrop-filter: blur(8px);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .candy-card--centered {
+    align-items: center;
+    justify-content: center;
+    background: rgb(255 255 255 / 50%);
+    padding: 1.25rem 1rem;
+  }
+
+  .candy-card--pink {
+    border-color: #FFB8D0;
+    box-shadow: 0 8px 32px rgb(255 143 171 / 18%), 0 2px 8px rgb(184 169 232 / 12%);
+  }
+
+  .candy-card--blue {
+    border-color: #A8D8EA;
+    box-shadow: 0 8px 32px rgb(168 216 234 / 20%), 0 2px 8px rgb(184 169 232 / 10%);
+  }
+
+  .candy-card--purple {
+    border-color: #C397E8;
+    box-shadow: 0 8px 32px rgb(195 151 232 / 18%), 0 2px 8px rgb(184 169 232 / 10%);
+    overflow: hidden;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Card heading                                                       */
+  /* ------------------------------------------------------------------ */
+
+  .card-heading {
+    font-family: var(--font-baloo), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #8B6BAE;
+    margin: 0 0 0.5rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Member badge                                                       */
+  /* ------------------------------------------------------------------ */
+
+  .member-badge {
+    margin-top: 0.6rem;
+    background: linear-gradient(135deg, #FFDDE6, #E8DFFF);
+    border-radius: 999px;
+    padding: 0.4rem 1.4rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #9B6B9E;
+    font-family: var(--font-varela), sans-serif;
+    border: 2px solid #F0C6D8;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Time component                                                     */
+  /* ------------------------------------------------------------------ */
+
+  .time-display {
+    font-family: var(--font-baloo), sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #FF8FAB, #C397E8, #B8A9E8);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+  }
+
+  .time-ampm {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0.3rem;
+    vertical-align: super;
+  }
+
+  .time-date {
+    margin-top: 0.4rem;
+    background: linear-gradient(135deg, #FFDDE6, #E8DFFF);
+    border-radius: 999px;
+    padding: 0.4rem 1.4rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #9B6B9E;
+    font-family: var(--font-varela), sans-serif;
+    border: 2px solid #F0C6D8;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Weather component                                                  */
+  /* ------------------------------------------------------------------ */
+
+  .weather-layout {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .weather-bubble {
+    background: linear-gradient(135deg, #E8F4FD, #FFEEF5);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #D4E8F0;
+    min-width: 120px;
+  }
+
+  .weather-icon { font-size: 5rem; }
+
+  .weather-temp {
+    font-family: var(--font-baloo), sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: #7B5EA7;
+    line-height: 1;
+  }
+
+  .weather-feels {
+    font-size: 2rem;
+    color: #A088B8;
+  }
+
+  .weather-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 2.5rem;
+    color: #8B6BAE;
+  }
+
+  .weather-detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .weather-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .weather-divider { margin: 0.6rem 0 0.4rem; }
+
+  .forecast-pills {
+    display: flex;
+    width: 100%;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .forecast-pill {
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 4rem;
+  }
+
+  .forecast-day {
+    font-weight: 700;
+    color: #7B5EA7;
+    align-items: center;
+    font-family: var(--font-baloo), sans-serif;
+  }
+
+  .forecast-temp {
+    color: #8B6BAE;
+    font-size: 3rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Todos component                                                    */
+  /* ------------------------------------------------------------------ */
+
+  .todo-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .todo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.6rem 0.3rem;
+    border-radius: 1rem;
+    background: var(--cat-color-bg);
+    border: 1px solid var(--cat-color-border);
+  }
+
+  .todo-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2.5px solid var(--cat-color);
+    flex-shrink: 0;
+  }
+
+  .todo-task {
+    flex: 1;
+    font-size: 1.5rem;
+    color: #5B4670;
+  }
+
+  .todo-assignee {
+    background: var(--member-color-bg);
+    border: 1.5px solid var(--member-color-border);
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+    font-size: 1.5rem;
+    color: #7B5EA7;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .todo-divider { margin: 0.3rem 0 0.1rem; }
+
+  .todo-item--completed {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.7rem;
+    background: rgba(126, 218, 185, 0.08);
+    border-radius: 1rem;
+    opacity: 0.65;
+  }
+
+  .todo-checkbox--filled {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--cat-color-gradient);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .todo-task--completed {
+    flex: 1;
+    font-size: 0.82rem;
+    color: #8B8B8B;
+    text-decoration: line-through;
+  }
+
+  .todo-assignee--completed {
+    background: var(--member-color-bg);
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.68rem;
+    color: #A0A0A0;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Calendar component                                                 */
+  /* ------------------------------------------------------------------ */
+
+  .calendar-section {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .calendar-section-header {
+    font-family: var(--font-baloo), sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #C397E8;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .calendar-pulsing-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FF8FAB;
+    animation: candyPulse 2s ease-in-out infinite;
+  }
+
+  .calendar-events {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .calendar-event-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    background: var(--ev-color-bg);
+    border: 2px solid var(--ev-color-border);
+    box-shadow: 0 2px 10px var(--ev-color-shadow);
+  }
+
+  .calendar-event-pill--upcoming {
+    border-width: 1.5px;
+    box-shadow: none;
+  }
+
+  .calendar-event-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .calendar-event-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #5B4670;
+  }
+
+  .calendar-event-time {
+    font-size: 1rem;
+    color: #A088B8;
+  }
+
+  .calendar-event-who {
+    border-radius: 999px;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.8rem;
+    color: #8B6BAE;
+    background: var(--who-color-bg);
+  }
+
+  .calendar-event-date {
+    font-size: 0.95rem;
+    color: #B8A9E8;
+    font-weight: 600;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Animations                                                         */
+  /* ------------------------------------------------------------------ */
+
+  /* Floating bubbles */
+  .candy-bubble {
+    animation: candyFloat 8s ease-in-out infinite;
+  }
+
+  /* Sparkle twinkle */
+  .candy-sparkle {
+    animation: candyTwinkle 3s ease-in-out infinite;
+  }
+
+  /* Slow float for decorative elements */
+  .candy-float-slow {
+    position: absolute;
+    top: 8px;
+    left: 14px;
+    z-index: 1;
+    opacity: 0.3;
+    animation: candyFloatSlow 12s ease-in-out infinite;
+  }
+
+  /* Bounce-in for cards */
+  .candy-card-bounce {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    transition:
+      opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+      transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .candy-card-bounce.candy-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Stagger the bounce-in delays */
+  .candy-card-bounce:nth-child(1) { transition-delay: 0s; }
+  .candy-card-bounce:nth-child(2) { transition-delay: 0.12s; }
+  .candy-card-bounce:nth-child(3) { transition-delay: 0.24s; }
+  .candy-card-bounce:nth-child(4) { transition-delay: 0.36s; }
+  .candy-card-bounce:nth-child(5) { transition-delay: 0.48s; }
+  .candy-card-bounce:nth-child(6) { transition-delay: 0.6s; }
+}
+
+@keyframes candyFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  33%      { transform: translateY(-18px) scale(1.03); }
+  66%      { transform: translateY(12px) scale(0.97); }
+}
+
+@keyframes candyTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50%      { opacity: 1; transform: scale(1.15) rotate(20deg); }
+}
+
+@keyframes candyFloatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes candyPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* Scrollbar styling for the sweet theme */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #e8b4d0;
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #d4a0c0;
 }
