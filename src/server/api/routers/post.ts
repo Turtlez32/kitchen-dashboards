@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 // Mocked DB
@@ -13,7 +14,29 @@ const posts: Post[] = [
   },
 ];
 
-export const postRouter = createTRPCRouter({  
+const TodoSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  completed: z.boolean(),
+  dueDate: z.string().nullable(),
+  createdAt: z.string(),
+  updatedAt: z.string().nullable(),
+});
+
+const CalendarEventSchema = z.object({
+  id: z.string(),
+  summary: z.string(),
+  start: z.string(),
+  end: z.string(),
+  status: z.string(),
+});
+
+const CalendarResponseSchema = z.object({
+  count: z.number(),
+  events: z.array(CalendarEventSchema),
+});
+
+export const postRouter = createTRPCRouter({
   seating: publicProcedure
     .query(async () => {
       const today = new Date();
@@ -28,31 +51,86 @@ export const postRouter = createTRPCRouter({
 
   todos: publicProcedure
     .query(async () => {
-      const res = await fetch("https://api.turtleware.au/api/todos");
-      const data = (await res.json()) as {
-        id: number;
-        title: string;
-        completed: boolean;
-        dueDate: string | null;
-        createdAt: string;
-        updatedAt: string | null;
-      }[];
-      return data;
+      let res: Response;
+      try {
+        res = await fetch("https://api.turtleware.au/api/todos");
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to fetch todos from external API",
+          cause: error,
+        });
+      }
+
+      if (!res.ok) {
+        throw new TRPCError({
+          code: "BAD_GATEWAY",
+          message: `Todos API returned ${res.status} ${res.statusText}`,
+        });
+      }
+
+      let responseBody: unknown;
+      try {
+        responseBody = await res.json();
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to parse JSON response from todos API",
+          cause: error,
+        });
+      }
+
+      try {
+        return z.array(TodoSchema).parse(responseBody);
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Todos API response did not match expected schema",
+          cause: error,
+        });
+      }
     }),
 
   calendar: publicProcedure
     .query(async () => {
-      const res = await fetch("https://api.turtleware.au/api/calendar");
-      const data = (await res.json()) as {
-        count: number;
-        events: {
-          id: string;
-          summary: string;
-          start: string;
-          end: string;
-          status: string;
-        }[];
-      };
-      return data.events;
+      let res: Response;
+      try {
+        res = await fetch("https://api.turtleware.au/api/calendar");
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to fetch calendar from external API",
+          cause: error,
+        });
+      }
+
+      if (!res.ok) {
+        throw new TRPCError({
+          code: "BAD_GATEWAY",
+          message: `Calendar API returned ${res.status} ${res.statusText}`,
+        });
+      }
+
+      let responseBody: unknown;
+      try {
+        responseBody = await res.json();
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to parse JSON response from calendar API",
+          cause: error,
+        });
+      }
+
+      try {
+        const data = CalendarResponseSchema.parse(responseBody);
+        return data.events;
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Calendar API response did not match expected schema",
+          cause: error,
+        });
+      }
     }),
 });

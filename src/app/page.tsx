@@ -19,7 +19,7 @@ const varela = Varela_Round({
 });
 
 export default async function Home() {
-  const clendar = await api.post.calendar();
+  const calendar = await api.post.calendar();
 
   return (
     <HydrateClient>
@@ -47,7 +47,7 @@ export default async function Home() {
         </div>
 
         <div className={`candy-card candy-card--purple candy-card-bounce candy-visible`}>
-          <Calendar events={clendar} />
+          <Calendar events={calendar} />
         </div>
       </div>
     </div>
