@@ -220,20 +220,23 @@
     padding: 0.35rem 0.75rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.35rem;
-    font-size: 4rem;
+    font-size: 3rem;
+    flex: 1;
   }
 
   .forecast-day {
     font-weight: 700;
     color: #7B5EA7;
-    align-items: center;
     font-family: var(--font-baloo), sans-serif;
+    padding: 0rem 0.75rem;
   }
 
   .forecast-temp {
     color: #8B6BAE;
     font-size: 3rem;
+    padding: 0rem 0.75rem;
   }
 
   /* ------------------------------------------------------------------ */
