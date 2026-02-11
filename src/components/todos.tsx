@@ -1,19 +1,4 @@
-import { todoItems } from "@/lib/mock-data";
-export interface TodoItem {
-  id: string;
-  task: string;
-  assignee: string;
-  completed: boolean;
-  category: "groceries" | "chores" | "errands" | "school" | "fun";
-}
-
-export const familyMembers = [
-  { name: "Elizabeth", emoji: "👩", color: "#F472B6" },
-  { name: "Matthew", emoji: "👨", color: "#60A5FA" },
-  { name: "Harvey", emoji: "👦", color: "#A78BFA" },
-  { name: "Andrew", emoji: "👦", color: "#34D399" },
-];
-
+import { todoItems, familyMembers } from "@/lib/mock-data";
 
 const categoryColors: Record<string, string> = {
   groceries: "#7EDAB9",
@@ -81,7 +66,7 @@ export default function Todos() {
               );
             })}
 
-            {completedTodos.length > 0 && (
+            {/* {completedTodos.length > 0 && (
               <>
                 <div className="todo-divider">
                   <ScallopBorder color="#D4F0E8" />
@@ -112,7 +97,7 @@ export default function Todos() {
                   );
                 })}
               </>
-            )}
+            )} */}
           </div>
         </>
     );

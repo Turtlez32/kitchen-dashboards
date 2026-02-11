@@ -38,7 +38,7 @@ export default function CandyLandDashboard() {
         </div>
 
         <div className={`candy-card candy-card--purple candy-card--centered candy-card-bounce ${mounted ? "candy-visible" : ""}`}>
-          <Weather />
+          {/* <Weather /> */}
         </div>
 
         <div className={`candy-card candy-card--pink candy-card--centered candy-card-bounce ${mounted ? "candy-visible" : ""}`}>

@@ -1,12 +1,4 @@
 import { calendarEvents } from "@/lib/mock-data";
-export interface CalendarEvent {
-  id: string;
-  title: string;
-  time: string;
-  date: string;
-  color: string;
-  who: string;
-}
 
 export const familyMembers = [
   { name: "Elizabeth", emoji: "👩", color: "#F472B6" },

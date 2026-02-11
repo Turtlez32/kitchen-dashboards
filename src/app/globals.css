@@ -107,7 +107,7 @@
     background: linear-gradient(135deg, #FFDDE6, #E8DFFF);
     border-radius: 999px;
     padding: 0.4rem 1.4rem;
-    font-size: 0.95rem;
+    font-size: 3rem;
     font-weight: 600;
     color: #9B6B9E;
     font-family: var(--font-varela), sans-serif;
@@ -170,18 +170,18 @@
     min-width: 120px;
   }
 
-  .weather-icon { font-size: 1rem; }
+  .weather-icon { font-size: 5rem; }
 
   .weather-temp {
     font-family: var(--font-baloo), sans-serif;
-    font-size: 2rem;
+    font-size: 5rem;
     font-weight: 800;
     color: #7B5EA7;
     line-height: 1;
   }
 
   .weather-feels {
-    font-size: 0.75rem;
+    font-size: 2rem;
     color: #A088B8;
   }
 
@@ -189,7 +189,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    font-size: 0.8rem;
+    font-size: 2.5rem;
     color: #8B6BAE;
   }
 
@@ -210,6 +210,7 @@
 
   .forecast-pills {
     display: flex;
+    width: 100%;
     gap: 0.4rem;
     flex-wrap: wrap;
   }
@@ -220,18 +221,19 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.78rem;
+    font-size: 4rem;
   }
 
   .forecast-day {
     font-weight: 700;
     color: #7B5EA7;
+    align-items: center;
     font-family: var(--font-baloo), sans-serif;
   }
 
   .forecast-temp {
     color: #8B6BAE;
-    font-size: 0.72rem;
+    font-size: 3rem;
   }
 
   /* ------------------------------------------------------------------ */
@@ -266,7 +268,7 @@
 
   .todo-task {
     flex: 1;
-    font-size: 0.62rem;
+    font-size: 1.5rem;
     color: #5B4670;
   }
 
@@ -275,7 +277,7 @@
     border: 1.5px solid var(--member-color-border);
     border-radius: 999px;
     padding: 0.15rem 0.55rem;
-    font-size: 0.48rem;
+    font-size: 1.5rem;
     color: #7B5EA7;
     white-space: nowrap;
     display: flex;
@@ -389,26 +391,26 @@
   }
 
   .calendar-event-title {
-    font-size: 0.82rem;
+    font-size: 2rem;
     font-weight: 600;
     color: #5B4670;
   }
 
   .calendar-event-time {
-    font-size: 0.72rem;
+    font-size: 1rem;
     color: #A088B8;
   }
 
   .calendar-event-who {
     border-radius: 999px;
     padding: 0.1rem 0.5rem;
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     color: #8B6BAE;
     background: var(--who-color-bg);
   }
 
   .calendar-event-date {
-    font-size: 0.65rem;
+    font-size: 0.95rem;
     color: #B8A9E8;
     font-weight: 600;
   }
