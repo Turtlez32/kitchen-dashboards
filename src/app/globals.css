@@ -7,8 +7,8 @@
 
 @layer base {
   * {
-    margin: 1;
-    padding: 1;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
 
@@ -240,7 +240,7 @@
 
   .todo-list {
     flex: 1;
-    /*overflow-y: auto;*/
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -457,6 +457,8 @@
   .candy-card-bounce:nth-child(2) { transition-delay: 0.12s; }
   .candy-card-bounce:nth-child(3) { transition-delay: 0.24s; }
   .candy-card-bounce:nth-child(4) { transition-delay: 0.36s; }
+  .candy-card-bounce:nth-child(5) { transition-delay: 0.48s; }
+  .candy-card-bounce:nth-child(6) { transition-delay: 0.6s; }
 }
 
 @keyframes candyFloat {
