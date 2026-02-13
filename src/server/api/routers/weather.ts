@@ -121,8 +121,6 @@ export const weatherRouter = createTRPCRouter({
       let responseBody: unknown;
       try {
         responseBody = await res.json();
-        console.log("Raw forecast API response:", JSON.stringify(responseBody, null, 2));
-        console.log("Response type:", Array.isArray(responseBody) ? "array" : typeof responseBody);
         if (typeof responseBody === "object" && responseBody !== null) {
           console.log("Response keys:", Object.keys(responseBody));
         }
