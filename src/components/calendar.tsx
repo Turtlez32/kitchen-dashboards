@@ -1,5 +1,3 @@
-import { calendarEvents } from "@/lib/mock-data";
-
 export const familyMembers = [
   { name: "Elizabeth", emoji: "👩", color: "#F472B6" },
   { name: "Matthew", emoji: "👨", color: "#60A5FA" },
@@ -25,9 +23,6 @@ type CalendarProps = {
 };
 
 export default function Calendar({ events }: CalendarProps) {
-    const todayEvents = calendarEvents.filter((e) => e.date === "Today");
-    const upcomingEvents = calendarEvents.filter((e) => e.date !== "Today");
-
     return (
         <>
         <div className="calendar-section">

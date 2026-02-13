@@ -19,6 +19,8 @@ const TodoSchema = z.object({
   title: z.string(),
   completed: z.boolean(),
   dueDate: z.string().nullable(),
+  type: z.string().nullable(),
+  assignedTo: z.string().nullable(),
   createdAt: z.string(),
   updatedAt: z.string().nullable(),
 });
@@ -35,6 +37,8 @@ const CalendarResponseSchema = z.object({
   count: z.number(),
   events: z.array(CalendarEventSchema),
 });
+
+const TodoResponseSchema = z.array(TodoSchema);
 
 export const postRouter = createTRPCRouter({
   seating: publicProcedure
@@ -81,7 +85,8 @@ export const postRouter = createTRPCRouter({
       }
 
       try {
-        return z.array(TodoSchema).parse(responseBody);
+        const data = TodoResponseSchema.parse(responseBody);
+        return data;
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

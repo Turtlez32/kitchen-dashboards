@@ -1,4 +1,19 @@
-import { todoItems, familyMembers } from "@/lib/mock-data";
+import { familyMembers } from "@/lib/mock-data";
+
+export type TodoEvent = {
+  id: number;
+  title: string;
+  completed: boolean;
+  dueDate: string | null;
+  type: string | null;
+  assignedTo: string | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+type TodoProps = {
+  todos: TodoEvent[];
+};
 
 const categoryColors: Record<string, string> = {
   groceries: "#7EDAB9",
@@ -18,86 +33,40 @@ function getMemberEmoji(name: string): string {
   return member?.emoji ?? "👤";
 }
 
-function ScallopBorder({ color = "#FFE4F0" }: { color?: string }) {
-  return (
-    <svg width="100%" height="12" viewBox="0 0 400 12" preserveAspectRatio="none">
-      <path
-        d="M0 12 Q10 0 20 12 Q30 0 40 12 Q50 0 60 12 Q70 0 80 12 Q90 0 100 12 Q110 0 120 12 Q130 0 140 12 Q150 0 160 12 Q170 0 180 12 Q190 0 200 12 Q210 0 220 12 Q230 0 240 12 Q250 0 260 12 Q270 0 280 12 Q290 0 300 12 Q310 0 320 12 Q330 0 340 12 Q350 0 360 12 Q370 0 380 12 Q390 0 400 12"
-        fill={color}
-      />
-    </svg>
-  );
+function prettyDate(dateStr: string | null): string {
+  if (!dateStr) return "No due date";
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+  return date.toLocaleDateString(undefined, options);
 }
 
-export default function Todos() {
-    const incompleteTodos = todoItems.filter((t) => !t.completed);
-    const completedTodos = todoItems.filter((t) => t.completed);
-
+export default function Todos({todos}: TodoProps) {
     return (
         <>
         <div className="todo-list">
-            {incompleteTodos.map((t) => {
-              const catColor = categoryColors[t.category];
-              const memColor = getMemberColor(t.assignee);
+            {todos.map((t) => {
+              const catColor = categoryColors[t.type ?? ""] || "#B8A9E8";
+              const memColor = getMemberColor(t.assignedTo ?? "");
               return (
-                <div
-                  key={t.id}
-                  className="todo-item"
+                <div key={t.id} className="todo-item"
                   style={{
                     '--cat-color-bg': `${catColor}18`,
                     '--cat-color-border': `${catColor}40`,
-                  } as React.CSSProperties}
-                >
-                  <div
-                    className="todo-checkbox"
-                    style={{ '--cat-color': catColor } as React.CSSProperties}
-                  />
-                  <span className="todo-task">{t.task}</span>
-                  <span
-                    className="todo-assignee"
-                    style={{
-                      '--member-color-bg': `${memColor}25`,
-                      '--member-color-border': `${memColor}60`,
-                    } as React.CSSProperties}
+                  } as React.CSSProperties }
                   >
-                    {getMemberEmoji(t.assignee)} {t.assignee}
-                  </span>
+                  <div className="todo-checkbox" style={{ '--cat-color': catColor } as React.CSSProperties}>{t.completed}</div>
+                  <span className="todo-task">{t.title}</span>     
+                  <span className="todo-date" style={{ '--cat-color': catColor } as React.CSSProperties}>{prettyDate(t.dueDate)}</span> 
+                  <span className="todo-assignee"
+                  style={{
+                    '--member-color-bg': `${memColor}25`,
+                    '--member-color-border': `${memColor}60`,
+                  } as React.CSSProperties  
+                  }>{getMemberEmoji(t.assignedTo ?? "")}{t.assignedTo}</span>           
                 </div>
-              );
-            })}
-
-            {/* {completedTodos.length > 0 && (
-              <>
-                <div className="todo-divider">
-                  <ScallopBorder color="#D4F0E8" />
-                </div>
-                {completedTodos.map((t) => {
-                  const catColor = categoryColors[t.category];
-                  const memColor = getMemberColor(t.assignee);
-                  return (
-                    <div key={t.id} className="todo-item--completed">
-                      <div
-                        className="todo-checkbox--filled"
-                        style={{
-                          '--cat-color-gradient': `linear-gradient(135deg, ${catColor}, ${catColor}AA)`,
-                        } as React.CSSProperties}
-                      >
-                        ✓
-                      </div>
-                      <span className="todo-task--completed">{t.task}</span>
-                      <span
-                        className="todo-assignee--completed"
-                        style={{
-                          '--member-color-bg': `${memColor}18`,
-                        } as React.CSSProperties}
-                      >
-                        {getMemberEmoji(t.assignee)} {t.assignee}
-                      </span>
-                    </div>
-                  );
-                })}
-              </>
-            )} */}
+                );
+              }
+            )};
           </div>
         </>
     );
