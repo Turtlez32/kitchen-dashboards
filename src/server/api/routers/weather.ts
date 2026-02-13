@@ -22,7 +22,7 @@ const CurrentWeatherSchema = z.object({
   visibility: z.number(),
   windSpeed: z.number(),
   windDeg: z.number(),
-  windGust: z.string().nullable(),
+  windGust: z.number().nullable(),
   cloudsPct: z.number(),
   weatherId: z.number(),
   weatherMain: z.string(),
@@ -90,6 +90,8 @@ export const weatherRouter = createTRPCRouter({
         const data = CurrentWeatherSchema.parse(responseBody);
         return data;
       } catch (error) {
+        console.error("Current weather schema validation error:", error);
+        console.error("Response body:", JSON.stringify(responseBody, null, 2));
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Weather API response did not match expected schema",
