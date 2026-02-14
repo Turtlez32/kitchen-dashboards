@@ -1,3 +1,7 @@
+"use client";
+
+import { api } from "~/trpc/react";
+
 export interface WeatherData {
   current: {
     temp: number;
@@ -27,48 +31,79 @@ function ScallopBorder({ color = "#FFE4F0" }: { color?: string }) {
   );
 }
 
-export const weatherData: WeatherData = {
-  current: {
-    temp: 72,
-    feelsLike: 70,
-    condition: "Partly Cloudy",
-    icon: "⛅",
-    humidity: 45,
-    wind: 8,
-  },
-  forecast: [
-    { day: "Mon", high: 74, low: 58, condition: "Sunny", icon: "☀️" },
-    { day: "Tue", high: 71, low: 55, condition: "Cloudy", icon: "☁️" },
-    { day: "Wed", high: 68, low: 52, condition: "Rain", icon: "🌧️" },
-    { day: "Thu", high: 75, low: 60, condition: "Sunny", icon: "☀️" },
-    { day: "Fri", high: 77, low: 62, condition: "Clear", icon: "🌤️" },
-  ],
-};
-
 const pillColors = ["#FFE4F0", "#E8DFFF", "#D4F0E8", "#FFF3E0", "#E0F0FF"];
 
 export default function Weather() {
+    const { data: currentWeather, isLoading: isLoadingCurrent, error: currentError } = api.weather.current.useQuery();
+    const { data: forecastData, isLoading: isLoadingForecast, error: forecastError } = api.weather.forecast.useQuery();
+
+    if (isLoadingCurrent || isLoadingForecast) {
+      return (
+        <div className="weather-layout">
+          <div className="weather-bubble">
+            <span className="weather-temp">Loading...</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (currentError || forecastError) {
+      return (
+        <div className="weather-layout">
+          <div className="weather-bubble">
+            <span className="weather-temp">Error loading weather</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (!currentWeather || !forecastData) {
+      return null;
+    }
+
+    // Helper function to format day name from date string
+    const getDayName = (dateString: string) => {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { weekday: 'short' });
+    };
+
+    // Helper function to get the most common weather condition emoji
+    const getWeatherEmoji = (conditions: string[]) => {
+      if (!conditions || conditions.length === 0) return '☀️';
+      const condition = conditions[0].toLowerCase();
+      if (condition.includes('rain')) return '🌧️';
+      if (condition.includes('cloud')) return '☁️';
+      if (condition.includes('clear')) return '☀️';
+      if (condition.includes('snow')) return '❄️';
+      if (condition.includes('thunder')) return '⛈️';
+      return '🌤️';
+    };
+
     return (
         <>
           <div className="weather-layout">
             <div className="weather-bubble">
-              <span className="weather-icon">{weatherData.current.icon}</span>
-              <span className="weather-temp">{weatherData.current.temp}°</span>
-              <span className="weather-feels">Feels {weatherData.current.feelsLike}°</span>
+              <img
+                src={`https://openweathermap.org/img/wn/${currentWeather.weatherIcon}@2x.png`}
+                alt={currentWeather.weatherDescription}
+                className="weather-icon"
+              />
+              <span className="weather-temp">{Math.round(currentWeather.temp)}°</span>
+              <span className="weather-feels">Feels {Math.round(currentWeather.feelsLike)}°</span>
             </div>
 
             <div className="weather-details">
               <div className="weather-detail-row">
                 <span className="weather-dot" style={{ background: "#A8D8EA" }} />
-                {weatherData.current.condition}
+                {currentWeather.weatherDescription}
               </div>
               <div className="weather-detail-row">
                 <span className="weather-dot" style={{ background: "#7EDAB9" }} />
-                Humidity {weatherData.current.humidity}%
+                Humidity {currentWeather.humidity}%
               </div>
               <div className="weather-detail-row">
                 <span className="weather-dot" style={{ background: "#FFB899" }} />
-                Wind {weatherData.current.wind} mph
+                Wind {Math.round(currentWeather.windSpeed)} kph
               </div>
             </div>
           </div>
@@ -78,11 +113,11 @@ export default function Weather() {
           </div>
 
           <div className="forecast-pills">
-            {weatherData.forecast.map((f, idx) => {
+            {forecastData.forecast.map((f, idx) => {
               const bg = pillColors[idx % pillColors.length];
               return (
                 <div
-                  key={f.day}
+                  key={f.id}
                   className="forecast-pill"
                   style={{
                     background: bg,
@@ -90,9 +125,9 @@ export default function Weather() {
                     boxShadow: `0 2px 8px ${bg}88`,
                   }}
                 >
-                  <span className="forecast-day">{f.day}</span>
-                  <span>{f.icon}</span>
-                  <span className="forecast-temp">{f.high}°/{f.low}°</span>
+                  <span className="forecast-day">{getDayName(f.forecastDate)}</span>
+                  <span>{getWeatherEmoji(f.conditions)}</span>
+                  <span className="forecast-temp">{Math.round(f.tempMax)}°/{Math.round(f.tempMin)}°</span>
                 </div>
               );
             })}

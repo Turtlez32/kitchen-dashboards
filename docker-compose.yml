@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  kitchen-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kitchen-dashboard:latest
+    container_name: kitchen-dashboard
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Node environment
+      - NODE_ENV=production
+
+      # Add your environment variables here
+      # Example:
+      # - DATABASE_URL=${DATABASE_URL}
+      # - API_KEY=${API_KEY}
+      # - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
+    # Optional: Use env_file to load secrets from a file
+    # env_file:
+    #   - .env.production
+
+    # Optional: Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Optional: Resource limits
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 256M
+
+    networks:
+      - kitchen-network
+
+networks:
+  kitchen-network:
+    driver: bridge

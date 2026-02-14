@@ -20,6 +20,7 @@ const varela = Varela_Round({
 
 export default async function Home() {
   const calendar = await api.post.calendar();
+  const todo = await api.post.todos();
   const seating = await api.post.seating();
 
   return (
@@ -44,7 +45,7 @@ export default async function Home() {
 
         <div className={`candy-card candy-card--blue candy-card-bounce candy-visible`}>
           <h2 className="card-heading">To-Do List</h2>
-          <Todos />
+          <Todos todos={todo} />
         </div>
 
         <div className={`candy-card candy-card--purple candy-card-bounce candy-visible`}>

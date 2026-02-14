@@ -1,5 +1,3 @@
-import { calendarEvents } from "@/lib/mock-data";
-
 export const familyMembers = [
   { name: "Elizabeth", emoji: "👩", color: "#F472B6" },
   { name: "Matthew", emoji: "👨", color: "#60A5FA" },
@@ -15,19 +13,11 @@ export type CalendarEvent = {
   status: string;
 };
 
-function getMemberColor(name: string): string {
-  const member = familyMembers.find((m) => m.name === name);
-  return member?.color ?? "#B8A9E8";
-}
-
 type CalendarProps = {
   events: CalendarEvent[];
 };
 
 export default function Calendar({ events }: CalendarProps) {
-    const todayEvents = calendarEvents.filter((e) => e.date === "Today");
-    const upcomingEvents = calendarEvents.filter((e) => e.date !== "Today");
-
     return (
         <>
         <div className="calendar-section">
@@ -36,24 +26,37 @@ export default function Calendar({ events }: CalendarProps) {
                 Calendar Events
               </div>
               <div className="calendar-events">
-                {events.map((event) => (
-                  <div
-                    key={event.id}
-                    className="calendar-event-pill"
-                  >
-                    {/* <span className="calendar-event-dot" style={{ background: ev.color }} /> */}
-                    <span className="calendar-event-title">{event.summary}</span>
-                    <span className="calendar-event-time">
-                      {new Date(event.start).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}{" "}
-                      {new Date(event.start).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}</span>
-                    {/* <span
-                      className="calendar-event-who"
-                      style={{ '--who-color-bg': `${getMemberColor(ev.who.split(" ")[0])}22` } as React.CSSProperties}
-                    > */}
-                      {/* {event.who} */}
-                    {/* </span> */}
-                  </div>
-                ))}
+                {events.map((event, idx) => {
+                  const eventColors = [
+                    { bg: 'rgba(255, 184, 208, 0.15)', border: '#FFB8D0', dot: '#FF8FAB' },
+                    { bg: 'rgba(168, 216, 234, 0.15)', border: '#A8D8EA', dot: '#7BC4E0' },
+                    { bg: 'rgba(195, 151, 232, 0.15)', border: '#C397E8', dot: '#B17FDE' },
+                    { bg: 'rgba(126, 218, 185, 0.15)', border: '#7EDAB9', dot: '#5EC99F' },
+                    { bg: 'rgba(255, 179, 153, 0.15)', border: '#FFB399', dot: '#FF9A75' },
+                  ];
+                  const colorScheme = eventColors[idx % eventColors.length];
+
+                  return (
+                    <div
+                      key={event.id}
+                      className="calendar-event-card"
+                      style={{
+                        '--event-bg': colorScheme.bg,
+                        '--event-border': colorScheme.border,
+                        '--event-dot': colorScheme.dot,
+                      } as React.CSSProperties}
+                    >
+                      <div className="calendar-event-header">
+                        <span className="calendar-event-dot" style={{ background: colorScheme.dot }} />
+                        <span className="calendar-event-title">{event.summary}</span>
+                      </div>
+                      <div className="calendar-event-datetime">
+                        {new Date(event.start).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })} at{" "}
+                        {new Date(event.start).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
+                      </div>
+                    </div>
+                  );
+                })}
 
               </div>
             </div>
