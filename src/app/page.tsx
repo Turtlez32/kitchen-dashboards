@@ -6,6 +6,9 @@ import Todos from "@/components/todos";
 import Calendar from "@/components/calendar";
 import { api ,HydrateClient } from "~/trpc/server";
 
+// Force dynamic rendering to prevent caching and ensure fresh data on each request
+export const dynamic = 'force-dynamic';
+
 const baloo = Baloo_2({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],

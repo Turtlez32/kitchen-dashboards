@@ -43,9 +43,13 @@ const TodoResponseSchema = z.array(TodoSchema);
 export const postRouter = createTRPCRouter({
   seating: publicProcedure
     .query(async () => {
+      // Get current date in Australia/Sydney timezone
       const today = new Date();
-      const day = today.getDate();
-
+      const formatter = new Intl.DateTimeFormat('en-AU', {
+        timeZone: 'Australia/Sydney',
+        day: 'numeric'
+      });
+      const day = parseInt(formatter.format(today), 10);
 
       if (day % 2 === 0) {
         return "Andrew";
