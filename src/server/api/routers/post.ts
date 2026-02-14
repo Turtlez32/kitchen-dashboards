@@ -52,9 +52,9 @@ export const postRouter = createTRPCRouter({
       const day = parseInt(formatter.format(today), 10);
 
       if (day % 2 === 0) {
-        return "Harvey";
-      } else {
         return "Andrew";
+      } else {
+        return "Harvey";
       }
   }),
 
