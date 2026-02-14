@@ -48,9 +48,9 @@ export const postRouter = createTRPCRouter({
 
 
       if (day % 2 === 0) {
-        return "Andrew";
-      } else {
         return "Harvey";
+      } else {
+        return "Andrew";
       }
   }),
 
