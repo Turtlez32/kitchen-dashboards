@@ -1,6 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { api } from "~/trpc/react";
+
+const AUTO_REFRESH_START_HOUR = 7;  // 7 AM
+const AUTO_REFRESH_END_HOUR = 21;   // 9 PM
+const REFETCH_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
+
+function useWeatherRefetchInterval(): number | false {
+  const [interval, setInterval_] = useState<number | false>(() => {
+    const hour = new Date().getHours();
+    return hour >= AUTO_REFRESH_START_HOUR && hour < AUTO_REFRESH_END_HOUR
+      ? REFETCH_INTERVAL_MS
+      : false;
+  });
+
+  useEffect(() => {
+    const check = setInterval(() => {
+      const hour = new Date().getHours();
+      const shouldRefetch =
+        hour >= AUTO_REFRESH_START_HOUR && hour < AUTO_REFRESH_END_HOUR;
+      setInterval_(shouldRefetch ? REFETCH_INTERVAL_MS : false);
+    }, 60 * 1000); // re-evaluate every minute
+    return () => clearInterval(check);
+  }, []);
+
+  return interval;
+}
 
 export interface WeatherData {
   current: {
@@ -34,8 +60,9 @@ function ScallopBorder({ color = "#FFE4F0" }: { color?: string }) {
 const pillColors = ["#FFE4F0", "#E8DFFF", "#D4F0E8", "#FFF3E0", "#E0F0FF"];
 
 export default function Weather() {
-    const { data: currentWeather, isLoading: isLoadingCurrent, error: currentError } = api.weather.current.useQuery();
-    const { data: forecastData, isLoading: isLoadingForecast, error: forecastError } = api.weather.forecast.useQuery();
+    const refetchInterval = useWeatherRefetchInterval();
+    const { data: currentWeather, isLoading: isLoadingCurrent, error: currentError } = api.weather.current.useQuery(undefined, { refetchInterval });
+    const { data: forecastData, isLoading: isLoadingForecast, error: forecastError } = api.weather.forecast.useQuery(undefined, { refetchInterval });
 
     if (isLoadingCurrent || isLoadingForecast) {
       return (
