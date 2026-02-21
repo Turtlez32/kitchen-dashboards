@@ -18,6 +18,14 @@ type CalendarProps = {
 };
 
 const EVENT_TIME_ZONE = "Australia/Sydney";
+const EVENT_LOCALE = "en-AU";
+const eventColors = [
+  { bg: "rgba(255, 184, 208, 0.15)", border: "#FFB8D0", dot: "#FF8FAB" },
+  { bg: "rgba(168, 216, 234, 0.15)", border: "#A8D8EA", dot: "#7BC4E0" },
+  { bg: "rgba(195, 151, 232, 0.15)", border: "#C397E8", dot: "#B17FDE" },
+  { bg: "rgba(126, 218, 185, 0.15)", border: "#7EDAB9", dot: "#5EC99F" },
+  { bg: "rgba(255, 179, 153, 0.15)", border: "#FFB399", dot: "#FF9A75" },
+];
 
 function formatEventDateTime(dateInput: string) {
   const parsedDate = new Date(dateInput);
@@ -26,14 +34,14 @@ function formatEventDateTime(dateInput: string) {
     return { dateLabel: "Invalid date", timeLabel: "Invalid time" };
   }
 
-  const dateLabel = parsedDate.toLocaleDateString(undefined, {
+  const dateLabel = parsedDate.toLocaleDateString(EVENT_LOCALE, {
     weekday: "short",
     month: "short",
     day: "numeric",
     timeZone: EVENT_TIME_ZONE,
   });
 
-  const timeLabel = parsedDate.toLocaleTimeString(undefined, {
+  const timeLabel = parsedDate.toLocaleTimeString(EVENT_LOCALE, {
     hour: "2-digit",
     minute: "2-digit",
     timeZone: EVENT_TIME_ZONE,
@@ -52,13 +60,6 @@ export default function Calendar({ events }: CalendarProps) {
         </div>
         <div className="calendar-events">
           {events.map((event, idx) => {
-            const eventColors = [
-              { bg: "rgba(255, 184, 208, 0.15)", border: "#FFB8D0", dot: "#FF8FAB" },
-              { bg: "rgba(168, 216, 234, 0.15)", border: "#A8D8EA", dot: "#7BC4E0" },
-              { bg: "rgba(195, 151, 232, 0.15)", border: "#C397E8", dot: "#B17FDE" },
-              { bg: "rgba(126, 218, 185, 0.15)", border: "#7EDAB9", dot: "#5EC99F" },
-              { bg: "rgba(255, 179, 153, 0.15)", border: "#FFB399", dot: "#FF9A75" },
-            ];
             const colorScheme = eventColors[idx % eventColors.length];
             const { dateLabel, timeLabel } = formatEventDateTime(event.start);
 
