@@ -1,9 +1,9 @@
-//import { useState, useEffect } from "react";
 import { Baloo_2, Varela_Round } from "next/font/google";
 import Time from "@/components/time";
 import Weather from "@/components/weather";
 import Todos from "@/components/todos";
 import Calendar from "@/components/calendar";
+import DarkModeToggle from "@/components/dark-mode-toggle";
 import { api ,HydrateClient } from "~/trpc/server";
 
 // Force dynamic rendering to prevent caching and ensure fresh data on each request
@@ -29,6 +29,7 @@ export default async function Home() {
   return (
     <HydrateClient>
     <div className={`dashboard-screen ${baloo.variable} ${varela.variable}`}>
+      <DarkModeToggle />
       <div className="dashboard-grid">
         <div className={`candy-card candy-card--pink candy-card--centered candy-card-bounce candy-visible`}>
           <Time />
