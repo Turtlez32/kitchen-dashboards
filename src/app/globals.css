@@ -514,3 +514,203 @@
 *::-webkit-scrollbar-thumb:hover {
   background: #d4a0c0;
 }
+
+/* ------------------------------------------------------------------ */
+/*  Dark mode toggle button                                            */
+/* ------------------------------------------------------------------ */
+
+.dark-mode-toggle {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.dark-mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Dark mode overrides                                                */
+/* ------------------------------------------------------------------ */
+
+html.dark .dashboard-screen {
+  background: #0f0f0f;
+}
+
+html.dark .candy-card {
+  background: #1a1a1a;
+}
+
+html.dark .candy-card--centered {
+  background: #1a1a1a;
+}
+
+html.dark .candy-card--pink,
+html.dark .candy-card--blue,
+html.dark .candy-card--purple {
+  border-color: #2e2e2e;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .card-heading {
+  color: #777;
+}
+
+/* Member badge */
+html.dark .member-badge {
+  background: #222;
+  border-color: #333;
+  color: #999;
+}
+
+/* Time */
+html.dark .time-display {
+  background: linear-gradient(135deg, #999, #bbb, #888);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .time-date {
+  background: #222;
+  border-color: #333;
+  color: #777;
+}
+
+/* Weather */
+html.dark .weather-bubble {
+  background: #1a1a1a;
+  border-color: #2e2e2e;
+  box-shadow: none;
+}
+
+html.dark .weather-temp {
+  color: #c0c0c0;
+}
+
+html.dark .weather-feels {
+  color: #777;
+}
+
+html.dark .weather-details {
+  color: #777;
+}
+
+html.dark .weather-dot {
+  background: #444 !important;
+}
+
+html.dark .weather-divider svg path {
+  fill: #2a2a2a;
+}
+
+html.dark .forecast-pill {
+  background: #1e1e1e !important;
+  border-color: #2a2a2a !important;
+  box-shadow: none !important;
+}
+
+html.dark .forecast-day {
+  color: #999;
+}
+
+html.dark .forecast-temp {
+  color: #777;
+}
+
+/* Todos */
+html.dark .todo-item {
+  background: #1a1a1a !important;
+  border-color: #2a2a2a !important;
+}
+
+html.dark .todo-checkbox {
+  border-color: #444 !important;
+}
+
+html.dark .todo-task {
+  color: #aaa;
+}
+
+html.dark .todo-date {
+  color: #666;
+}
+
+html.dark .todo-assignee {
+  background: #222 !important;
+  border-color: #333 !important;
+  color: #888;
+}
+
+html.dark .todo-item--completed {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+html.dark .todo-task--completed {
+  color: #444;
+}
+
+html.dark .todo-assignee--completed {
+  background: #1e1e1e;
+  color: #555;
+}
+
+/* Calendar */
+html.dark .calendar-section-header {
+  color: #777;
+}
+
+html.dark .calendar-pulsing-dot {
+  background: #444;
+}
+
+html.dark .calendar-event-card {
+  background: #1a1a1a !important;
+  border-color: #2a2a2a !important;
+  box-shadow: none;
+}
+
+html.dark .calendar-event-card:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+html.dark .calendar-event-dot {
+  background: #555 !important;
+}
+
+html.dark .calendar-event-title {
+  color: #aaa;
+}
+
+html.dark .calendar-event-datetime {
+  color: #555;
+}
+
+/* Scrollbar (dark) */
+html.dark *::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+html.dark *::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Toggle button in dark mode */
+html.dark .dark-mode-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .dark-mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
