@@ -14,7 +14,7 @@ function applyDark(dark: boolean) {
 }
 
 export default function DarkModeToggle() {
-  const [dark, setDark] = useState<Boolean>(false);
+  const [dark, setDark] = useState<boolean>(false);
 
   useEffect(() => {
     // Apply on mount
