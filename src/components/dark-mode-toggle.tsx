@@ -14,7 +14,7 @@ function applyDark(dark: boolean) {
 }
 
 export default function DarkModeToggle() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState<Boolean>(false);
 
   useEffect(() => {
     // Apply on mount
@@ -40,7 +40,7 @@ export default function DarkModeToggle() {
   }
 
   return (
-    <button className="dark-mode-toggle" onClick={toggle} aria-label="Toggle dark mode">
+    <button type="button" className="dark-mode-toggle" onClick={toggle} aria-label="Toggle dark mode">
       {dark ? "☀️" : "🌙"}
     </button>
   );
