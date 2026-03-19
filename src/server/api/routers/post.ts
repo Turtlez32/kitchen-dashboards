@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { env } from "~/env";
 
 // Mocked DB
 interface Post {
@@ -62,7 +63,9 @@ export const postRouter = createTRPCRouter({
     .query(async () => {
       let res: Response;
       try {
-        res = await fetch("https://api.turtleware.au/api/todos");
+        res = await fetch(`${env.API_BASE_URL}/todos`, {
+          headers: { "x-api-key": env.API_KEY },
+        });
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -105,7 +108,9 @@ export const postRouter = createTRPCRouter({
     .query(async () => {
       let res: Response;
       try {
-        res = await fetch("https://api.turtleware.au/api/calendar");
+        res = await fetch(`${env.API_BASE_URL}/calendar`, {
+          headers: { "x-api-key": env.API_KEY },
+        });
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

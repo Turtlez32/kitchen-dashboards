@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { env } from "~/env";
 
 const CurrentWeatherSchema = z.object({
   id: z.number(),
@@ -52,14 +53,15 @@ const ForecastResponseSchema = z.object({
   forecast: z.array(ForecastDetailsSchema),
 });
 
-const WEATHER_BASE_URL = "https://api.turtleware.au/api/weather";
 
 export const weatherRouter = createTRPCRouter({
   current: publicProcedure
     .query(async () => {
       let res: Response;
       try {
-        res = await fetch(`${WEATHER_BASE_URL}/current`);
+        res = await fetch(`${env.API_BASE_URL}/weather/current`, {
+          headers: { "x-api-key": env.API_KEY },
+        });
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -104,7 +106,9 @@ export const weatherRouter = createTRPCRouter({
     .query(async () => {
       let res: Response;
       try {
-        res = await fetch(`${WEATHER_BASE_URL}/forecast`);
+        res = await fetch(`${env.API_BASE_URL}/weather/forecast`, {
+          headers: { "x-api-key": env.API_KEY },
+        });
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
