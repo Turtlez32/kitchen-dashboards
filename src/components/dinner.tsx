@@ -6,15 +6,25 @@ interface DinnerData {
   updatedAt: string;
 }
 
-async function fetchDinner(): Promise<DinnerData | null> {
-  const date = new Date().toISOString().split("T")[0];
+function isDinnerData(obj: unknown): obj is DinnerData {
+  return (
+    typeof obj === "object" &&
+    obj !== null &&
+    typeof (obj as Record<string, unknown>).date === "string" &&
+    typeof (obj as Record<string, unknown>).item === "string" &&
+    typeof (obj as Record<string, unknown>).updatedAt === "string"
+  );
+}
+
+async function fetchDinner(date: string): Promise<DinnerData | null> {
   try {
     const res = await fetch(`${env.API_BASE_URL}/dinner/${date}`, {
       headers: { "x-api-key": env.DINNER_API_KEY },
       next: { revalidate: 300 },
     });
     if (!res.ok) return null;
-    return res.json() as Promise<DinnerData>;
+    const data: unknown = await res.json();
+    return isDinnerData(data) ? data : null;
   } catch {
     return null;
   }
@@ -39,8 +49,8 @@ function dailyIcon(date: string): string {
 }
 
 export default async function Dinner() {
-  const date = new Date().toISOString().split("T")[0]!;
-  const dinner = await fetchDinner();
+  const date = new Date().toISOString().split("T")[0];
+  const dinner = await fetchDinner(date);
   const icon = dailyIcon(date);
 
   return (
