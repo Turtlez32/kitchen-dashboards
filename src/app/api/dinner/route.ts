@@ -1,7 +1,9 @@
 import { env } from "~/env";
 
 export async function GET() {
-  const date = new Date().toISOString().split("T")[0];
+  const date = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Australia/Sydney",
+  }).format(new Date());
   let upstream: Response;
 
   try {

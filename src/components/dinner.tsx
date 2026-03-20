@@ -49,7 +49,9 @@ function dailyIcon(date: string): string {
 }
 
 export default async function Dinner() {
-  const date = new Date().toISOString().split("T")[0];
+  const date = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Australia/Sydney",
+  }).format(new Date());
   const dinner = await fetchDinner(date);
   const icon = dailyIcon(date);
 
