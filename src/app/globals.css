@@ -432,6 +432,92 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /*  Dinner component                                                   */
+  /* ------------------------------------------------------------------ */
+
+  .dinner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .dinner-icons {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .dinner-icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0e4ff, #e4d4ff);
+    border: 2px solid #C397E8;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 6px rgba(195, 151, 232, 0.2);
+  }
+
+  .dinner-label {
+    font-family: var(--font-baloo), sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #A088B8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .dinner-name-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #f5eeff, #ece0ff);
+    border: 2px solid #C397E8;
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    box-shadow: 0 3px 10px rgba(195, 151, 232, 0.2);
+    max-width: 100%;
+  }
+
+  .dinner-plate-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .dinner-name {
+    font-family: var(--font-baloo), sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #7B5EA7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  html.dark .dinner-icon-badge {
+    background: #2a2040;
+    border-color: #4a3060;
+  }
+
+  html.dark .dinner-label {
+    color: #666;
+  }
+
+  html.dark .dinner-name-pill {
+    background: #1e1830;
+    border-color: #3a2550;
+    box-shadow: none;
+  }
+
+  html.dark .dinner-name {
+    color: #b090d0;
+  }
+
+  /* ------------------------------------------------------------------ */
   /*  Animations                                                         */
   /* ------------------------------------------------------------------ */
 
