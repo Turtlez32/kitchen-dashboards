@@ -48,25 +48,30 @@ export default function Todos({todos}: TodoProps) {
               const catColor = categoryColors[t.type ?? ""] || "#B8A9E8";
               const memColor = getMemberColor(t.assignedTo ?? "");
               return (
-                <div key={t.id} className="todo-item"
+                <div key={t.id} className={t.completed ? "todo-item todo-item--completed" : "todo-item"}
                   style={{
                     '--cat-color-bg': `${catColor}18`,
                     '--cat-color-border': `${catColor}40`,
                   } as React.CSSProperties }
                   >
-                  <div className="todo-checkbox" style={{ '--cat-color': catColor } as React.CSSProperties}>{t.completed}</div>
-                  <span className="todo-task">{t.title}</span>     
-                  <span className="todo-date" style={{ '--cat-color': catColor } as React.CSSProperties}>{prettyDate(t.dueDate)}</span> 
-                  <span className="todo-assignee"
+                  <div
+                    className={t.completed ? "todo-checkbox--filled" : "todo-checkbox"}
+                    style={{ '--cat-color': catColor, background: t.completed ? catColor : undefined } as React.CSSProperties}
+                  >
+                    {t.completed ? "✓" : null}
+                  </div>
+                  <span className={t.completed ? "todo-task todo-task--completed" : "todo-task"}>{t.title}</span>
+                  <span className="todo-date" style={{ '--cat-color': catColor } as React.CSSProperties}>{prettyDate(t.dueDate)}</span>
+                  <span className={t.completed ? "todo-assignee--completed" : "todo-assignee"}
                   style={{
                     '--member-color-bg': `${memColor}25`,
                     '--member-color-border': `${memColor}60`,
-                  } as React.CSSProperties  
-                  }>{getMemberEmoji(t.assignedTo ?? "")}{t.assignedTo}</span>           
+                  } as React.CSSProperties
+                  }>{getMemberEmoji(t.assignedTo ?? "")}{t.assignedTo}</span>
                 </div>
                 );
               }
-            )};
+            )}
           </div>
         </>
     );

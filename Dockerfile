@@ -20,6 +20,7 @@ COPY . .
 
 # Build the Next.js app
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV SKIP_ENV_VALIDATION=1
 RUN bun run build
 
 # Stage 3: Production runtime

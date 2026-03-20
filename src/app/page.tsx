@@ -1,7 +1,7 @@
 import { Baloo_2, Varela_Round } from "next/font/google";
 import Time from "@/components/time";
 import Weather from "@/components/weather";
-import Todos from "@/components/todos";
+import TodosContainer from "@/components/todos-container";
 import Calendar from "@/components/calendar";
 import DarkModeToggle from "@/components/dark-mode-toggle";
 import { api ,HydrateClient } from "~/trpc/server";
@@ -49,7 +49,7 @@ export default async function Home() {
 
         <div className={`candy-card candy-card--blue candy-card-bounce candy-visible`}>
           <h2 className="card-heading">To-Do List</h2>
-          <Todos todos={todo} />
+          <TodosContainer initialTodos={todo} />
         </div>
 
         <div className={`candy-card candy-card--purple candy-card-bounce candy-visible`}>
