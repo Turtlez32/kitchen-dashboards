@@ -4,6 +4,7 @@ import Weather from "@/components/weather";
 import TodosContainer from "@/components/todos-container";
 import Calendar from "@/components/calendar";
 import DarkModeToggle from "@/components/dark-mode-toggle";
+import Dinner from "@/components/dinner";
 import { api ,HydrateClient } from "~/trpc/server";
 
 // Force dynamic rendering to prevent caching and ensure fresh data on each request
@@ -40,7 +41,7 @@ export default async function Home() {
         </div>
 
         <div className={`candy-card candy-card--purple candy-card--centered candy-card-bounce candy-visible`}>
-          {/* <Weather /> */}
+          <Dinner />
         </div>
 
         <div className={`candy-card candy-card--pink candy-card--centered candy-card-bounce candy-visible`}>
