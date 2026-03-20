@@ -7,6 +7,7 @@ export function useTodos(initial: TodoEvent[]) {
   const [todos, setTodos] = useState<TodoEvent[]>(initial);
   const eventSourceRef = useRef<EventSource | null>(null);
   const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const connectRef = useRef<(() => void) | null>(null);
 
   const connect = useCallback(() => {
     if (eventSourceRef.current) {
@@ -29,16 +30,21 @@ export function useTodos(initial: TodoEvent[]) {
 
     es.onerror = () => {
       es.close();
+      clearTimeout(reconnectTimeoutRef.current ?? undefined);
       reconnectTimeoutRef.current = setTimeout(() => {
-        connect();
+        connectRef.current?.();
       }, 5000);
     };
   }, []);
 
   useEffect(() => {
+    connectRef.current = connect;
+  }, [connect]);
+
+  useEffect(() => {
     connect();
     return () => {
-      if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current);
+      clearTimeout(reconnectTimeoutRef.current ?? undefined);
       eventSourceRef.current?.close();
     };
   }, [connect]);

@@ -16,6 +16,11 @@ export async function GET() {
     return new Response("SSE source unavailable", { status: 502 });
   }
 
+  const contentType = upstream.headers.get("content-type") ?? "";
+  if (!contentType.includes("text/event-stream")) {
+    return new Response("SSE source returned unexpected content type", { status: 502 });
+  }
+
   return new Response(upstream.body, {
     headers: {
       "Content-Type": "text/event-stream",
